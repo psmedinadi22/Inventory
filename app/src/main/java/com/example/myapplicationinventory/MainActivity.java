@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -14,10 +16,13 @@ import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import static com.example.myapplicationinventory.R.layout.inventory;
+import static com.example.myapplicationinventory.R.layout.delete;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -26,10 +31,9 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> data2 = new ArrayList<String>();
     TableLayout table;
     EditText ed1, ed2, ed3;
-    Button b1, ba, be;
-    ImageButton previous;
-    Spinner product, quantity;
-    Add add;
+    Button b1, ba, be, deleteButton;
+    ImageButton previous, previous2;
+    Spinner spinnerProduct, spinnerQuantity;
 
 
     @Override
@@ -53,16 +57,15 @@ public class MainActivity extends AppCompatActivity {
                 previous.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        setContentView(R.layout.activity_main);
+                        onBackPressed();
                     }
                 });
 
                 b1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //add();
-                        add = new Add();
-                        add.add(ed1,ed2,ed3,data,data1,data2);
+                        add();
+
                     }
                 });
 
@@ -72,14 +75,15 @@ public class MainActivity extends AppCompatActivity {
         be.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //setContentView(R.layout.);
+                setContentView(delete);
+                delete();
 
             }
         });
 
     }
 
- /*public void add(){
+ public  void add(){
         String prodname = ed1.getText().toString();
         int price = Integer.parseInt(ed2.getText().toString());
         int qty = Integer.parseInt(ed3.getText().toString());
@@ -114,17 +118,68 @@ public class MainActivity extends AppCompatActivity {
         ed2.setText("");
         ed3.setText("");
         ed1.requestFocus();
-    }*/
-
-
-    public void delete(){
-        product = findViewById(R.id.spinnerProduct);
-        quantity = findViewById(R.id.spinnerQuantity);
-
-        ArrayList<String> productsArray = new ArrayList<>();
-        ArrayList<String> quantityArray = new ArrayList<>();
     }
 
 
+    public void delete(){
+        spinnerProduct = findViewById(R.id.spinnerProduct);
+        spinnerQuantity= findViewById(R.id.spinnerQuantity);
+
+        final ArrayList<String> productsArray = new ArrayList<>();
+        ArrayList<String> quantityArray = new ArrayList<>();
+        productsArray.add("hello");
+        /*for(int i =0; i<data.size(); i++){
+            productsArray.add(data.get(i));
+
+        }
+        for(int i =0; i<data2.g; i++){
+         int numEntero = Integer.parseInt(numCadena);
+            quantityArray.add(i+1);
+        }*/
+        quantityArray.add("4");
+
+        ArrayAdapter adpProducts = new ArrayAdapter(MainActivity.this, android.R.layout.simple_spinner_dropdown_item,productsArray);
+        spinnerProduct.setAdapter(adpProducts);
+
+        spinnerProduct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String elemenProductArray = (String) spinnerProduct.getAdapter().getItem(position);
+
+                Toast.makeText(MainActivity.this, "Producto: "+elemenProductArray, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        ArrayAdapter adpQuantity = new ArrayAdapter(MainActivity.this, android.R.layout.simple_spinner_dropdown_item,quantityArray);
+        spinnerQuantity.setAdapter(adpQuantity);
+
+        spinnerQuantity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String elemenQuantityArray = (String) spinnerQuantity.getAdapter().getItem(position);
+
+                Toast.makeText(MainActivity.this, "Cantidad: "+elemenQuantityArray, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        deleteButton = findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //Borrar el precio y cantidad mostradas
+            }
+        });
+
+    }
 
 }
