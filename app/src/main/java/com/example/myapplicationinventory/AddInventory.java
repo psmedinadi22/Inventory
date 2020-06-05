@@ -21,6 +21,9 @@ public class AddInventory extends AppCompatActivity {
     ArrayList<String> data2 = new ArrayList<String>();
     EditText ed1, ed2, ed3;
     Button b1;
+    ArrayList<String> productArray = new ArrayList<>();
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,40 +38,38 @@ public class AddInventory extends AppCompatActivity {
         ed3 = findViewById(R.id.ed3);
         b1 = findViewById(R.id.btn1);
 
+
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 add();
-
             }
         });
     }
 
-    public  void add(){
+    public ArrayList<String> add(){
+
         String prodname = ed1.getText().toString();
         int price = Integer.parseInt(ed2.getText().toString());
         int qty = Integer.parseInt(ed3.getText().toString());
-
         data.add(prodname);
+        //Este es el arreglo que guarda los productos, pero se reinicia cada vez que termina >:|
+        productArray.add(prodname);
         data1.add(String.valueOf(price));
         data2.add(String.valueOf(qty));
-
-
         TableLayout table = (TableLayout) findViewById(R.id.tb1);
-
         TableRow row = new TableRow(this);
         TextView t1= new TextView(this);
         TextView t2= new TextView(this);
         TextView t3= new TextView(this);
 
-        for(int i =0; i<data.size(); i++){
+        for(int i = 0; i<data.size(); i++){
             String pname = data.get(i);
             String prc = data1.get(i);
             String qtyy = data2.get(i);
             t1.setText(pname);
             t2.setText(prc);
-            t3.setText(qtyy);
-        }
+            t3.setText(qtyy); }
 
         row.addView(t1);
         row.addView(t2);
@@ -79,5 +80,12 @@ public class AddInventory extends AppCompatActivity {
         ed2.setText("");
         ed3.setText("");
         ed1.requestFocus();
+        return productArray;
+    }
+//Metodo que se usa para llamar el arreglo de productos llenos :)
+    public ArrayList<String> getArray() {
+        productArray.add("P1");
+        productArray.add("P2");
+        return productArray;
     }
 }

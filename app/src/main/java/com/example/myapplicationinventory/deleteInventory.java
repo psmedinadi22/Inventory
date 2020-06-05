@@ -17,8 +17,9 @@ import static com.example.myapplicationinventory.R.layout.delete;
 
 public class deleteInventory extends AppCompatActivity {
     Spinner spinnerProduct, spinnerQuantity;
-    ImageButton previous2;
     Button deleteButton;
+    ArrayList<String> productsArray = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,21 +33,21 @@ public class deleteInventory extends AppCompatActivity {
     public void delete(){
         spinnerProduct = findViewById(R.id.spinnerProduct);
         spinnerQuantity= findViewById(R.id.spinnerQuantity);
-
-        final ArrayList<String> productsArray = new ArrayList<>();
         ArrayList<String> quantityArray = new ArrayList<>();
-       // productsArray.add("hello");
-        /*for(int i =0; i<data.size(); i++){
-            productsArray.add(data.get(i));
 
-        }
-        for(int i =0; i<data2.g; i++){
-         int numEntero = Integer.parseInt(numCadena);
-            quantityArray.add(i+1);
-        }*/
+        AddInventory products_array = new AddInventory();
+
+
+        // Aqui se llama el arreglo de productos
+
+
+//de esta manera llenamos el arreglo de la cantidad del producto
         quantityArray.add("4");
+        quantityArray.add("3");
+        quantityArray.add("2");
+        quantityArray.add("1");
 
-        ArrayAdapter adpProducts = new ArrayAdapter(deleteInventory.this, android.R.layout.simple_spinner_dropdown_item,productsArray);
+        ArrayAdapter adpProducts = new ArrayAdapter(deleteInventory.this, android.R.layout.simple_spinner_dropdown_item,products_array.getArray());
         spinnerProduct.setAdapter(adpProducts);
 
         spinnerProduct.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -62,6 +63,8 @@ public class deleteInventory extends AppCompatActivity {
 
             }
         });
+        //-----------------------------------------------------------------------------------------------
+        //Cantidad de producto
 
         ArrayAdapter adpQuantity = new ArrayAdapter(deleteInventory.this, android.R.layout.simple_spinner_dropdown_item,quantityArray);
         spinnerQuantity.setAdapter(adpQuantity);
@@ -84,7 +87,10 @@ public class deleteInventory extends AppCompatActivity {
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //Borrar el precio y cantidad mostradas
+
+                //Borrar el precio y cantidad mostradas, suerte!!
+
+
             }
         });
 
